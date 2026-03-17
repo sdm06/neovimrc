@@ -1,9 +1,10 @@
 require("sdm.set")
 require("sdm.remap")
 require("sdm.lazy_init")
+vim.opt.clipboard = "unnamedplus"
 
 local augroup = vim.api.nvim_create_augroup
-local ThePrimeagenGroup = augroup("ThePrimeagen", {})
+local sdm_group = augroup("sdm_group", {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup("HighlightYank", {})
@@ -30,13 +31,13 @@ autocmd("TextYankPost", {
 })
 
 autocmd({ "BufWritePre" }, {
-	group = ThePrimeagenGroup,
+	group = sdm_group,
 	pattern = "*",
 	command = [[%s/\s\+$//e]],
 })
 
 autocmd("BufEnter", {
-	group = ThePrimeagenGroup,
+	group = sdm_group,
 	callback = function()
 		if vim.bo.filetype == "zig" then
 			pcall(vim.cmd.colorscheme, "tokyonight-night")
@@ -47,7 +48,7 @@ autocmd("BufEnter", {
 })
 
 autocmd("LspAttach", {
-	group = ThePrimeagenGroup,
+	group = sdm_group,
 	callback = function(e)
 		local opts = { buffer = e.buf }
 		vim.keymap.set("n", "gd", function()
