@@ -1,4 +1,4 @@
-return {
+local plugins = {
 
 	{
 		"nvim-lua/plenary.nvim",
@@ -7,3 +7,5 @@ return {
 
 	"eandrju/cellular-automaton.nvim",
 }
+
+return plugins
